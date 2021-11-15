@@ -5,10 +5,14 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -32,13 +36,19 @@ public class BadIOGUI {
     private final JFrame frame = new JFrame(TITLE);
 
     /**
-     * 
+     * GUI for printing a random number on a file.
      */
     public BadIOGUI() {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new BoxLayout(panel2, BoxLayout.X_AXIS));
         final JButton write = new JButton("Write on file");
-        canvas.add(write, BorderLayout.CENTER);
+        final JButton read = new JButton("Read");
+        canvas.add(panel2, BorderLayout.CENTER);
+        //canvas.add(write, BorderLayout.CENTER);
+        panel2.add(write);
+        panel2.add(read);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
@@ -62,6 +72,17 @@ public class BadIOGUI {
                 }
             }
         });
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try (InputStream in = new FileInputStream(PATH)) {
+                    in.transferTo(System.out);
+                    System.out.println("");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 
     private void display() {
@@ -77,6 +98,7 @@ public class BadIOGUI {
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
         frame.setSize(sw / PROPORTION, sh / PROPORTION);
+        frame.pack();
         /*
          * Instead of appearing at (0,0), upper left corner of the screen, this
          * flag makes the OS window manager take care of the default positioning
