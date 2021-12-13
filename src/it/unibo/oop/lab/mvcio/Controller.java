@@ -42,21 +42,21 @@ public class Controller {
      * @param file
      *          the file to be set
      */
-    void setCurrentFile(final File file) {
+    public void setCurrentFile(final File file) {
         this.outFile = file;
     }
 
     /**
      * @return the current output file
      */
-    File getCurrentFile() {
+    public File getCurrentFile() {
         return this.outFile;
     }
 
     /**
      * @return the path of the current output file
      */
-    String getPath() {
+    public String getPath() {
         return this.outFile.getPath();
     }
 
@@ -67,7 +67,7 @@ public class Controller {
      * @throws IOException
      *          if writing fails
      */
-    void write(final String string) throws IOException {
+    public void write(final String string) throws IOException {
         try (PrintStream out = new PrintStream(this.outFile)) {
             out.println(string);
         }
