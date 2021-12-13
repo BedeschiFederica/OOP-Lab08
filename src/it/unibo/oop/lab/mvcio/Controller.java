@@ -1,7 +1,11 @@
 package it.unibo.oop.lab.mvcio;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+
 /**
- * 
+ *  Simple controller responsible of I/O access.
  */
 public class Controller {
 
@@ -27,5 +31,46 @@ public class Controller {
      * System.getProperty("file.separator"). The combined use of those methods leads
      * to a software that runs correctly on every platform.
      */
+
+    private static final String HOME = System.getProperty("user.home");
+    private static final String SEPARATOR = System.getProperty("file.separator");
+
+    private File outFile = new File(HOME + SEPARATOR + "output.txt");
+
+    /**
+     * Set a file as current output file.
+     * @param file
+     *          the file to be set
+     */
+    void setCurrentFile(final File file) {
+        this.outFile = file;
+    }
+
+    /**
+     * @return the current output file
+     */
+    File getCurrentFile() {
+        return this.outFile;
+    }
+
+    /**
+     * @return the path of the current output file
+     */
+    String getPath() {
+        return this.outFile.getPath();
+    }
+
+    /**
+     * Writes the string on the output file.
+     * @param string
+     *          the string to be written
+     * @throws IOException
+     *          if writing fails
+     */
+    void write(final String string) throws IOException {
+        try (PrintStream out = new PrintStream(this.outFile)) {
+            out.println(string);
+        }
+    }
 
 }
