@@ -66,15 +66,11 @@ public final class SimpleGUI {
          * on screen. Results may vary, but it is generally the best choice.
          */
         this.frame.setLocationByPlatform(true);
-
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         final JTextArea text = new JTextArea();
         final JButton save = new JButton("Save");
-        panel.add(text, BorderLayout.CENTER);
-        panel.add(save, BorderLayout.SOUTH);
-        this.frame.setContentPane(panel);
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -85,6 +81,9 @@ public final class SimpleGUI {
                 }
             }
         });
+        panel.add(text, BorderLayout.CENTER);
+        panel.add(save, BorderLayout.SOUTH);
+        this.frame.setContentPane(panel);
     }
 
     /**
