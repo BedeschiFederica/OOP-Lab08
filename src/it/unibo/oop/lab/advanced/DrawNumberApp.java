@@ -1,23 +1,33 @@
 package it.unibo.oop.lab.advanced;
 
+import java.io.IOException;
+
+import it.unibo.oop.lab.mvc.SimpleGUI;
+
 /**
  */
 public final class DrawNumberApp implements DrawNumberViewObserver {
 
-    private static final int MIN = 0;
-    private static final int MAX = 100;
-    private static final int ATTEMPTS = 10;
     private final DrawNumber model;
     private final DrawNumberView view;
 
     /**
-     * 
+     * Builds a new {@link DrawNumberApp}.
+     * @param configFileName
+     *              the configuration file to be used to get the resources
      */
-    public DrawNumberApp() {
-        this.model = new DrawNumberImpl(MIN, MAX, ATTEMPTS);
+    public DrawNumberApp(final String configFileName) {
         this.view = new DrawNumberViewImpl();
         this.view.setObserver(this);
         this.view.start();
+        final ResourceLoader resourceLoader = new ResourceLoader(configFileName);
+        try {
+            resourceLoader.load();
+        } catch (IOException | IllegalStateException e) {
+            this.view.displayError(e.getMessage());
+        }
+        this.model = new DrawNumberImpl(resourceLoader.getMin(),
+                resourceLoader.getMax(), resourceLoader.getAttempts());
     }
 
     @Override
@@ -47,7 +57,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
      *            ignored
      */
     public static void main(final String... args) {
-        new DrawNumberApp();
+        new DrawNumberApp("config.yml");
     }
 
 }
