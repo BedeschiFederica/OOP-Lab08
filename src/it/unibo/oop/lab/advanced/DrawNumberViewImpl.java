@@ -29,8 +29,8 @@ public final class DrawNumberViewImpl implements DrawNumberView {
      * 
      */
     public DrawNumberViewImpl() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new JPanel(new BorderLayout()));
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.getContentPane().add(new JPanel(new BorderLayout()));
         final JPanel pNorth = new JPanel(new FlowLayout());
         final JTextField tNumber = new JTextField(10);
         final JButton bGo = new JButton(GO);
@@ -41,8 +41,8 @@ public final class DrawNumberViewImpl implements DrawNumberView {
         final JButton bQuit = new JButton(QUIT);
         pSouth.add(bReset);
         pSouth.add(bQuit);
-        frame.getContentPane().add(pNorth, BorderLayout.NORTH);
-        frame.getContentPane().add(pSouth, BorderLayout.SOUTH);
+        this.frame.getContentPane().add(pNorth, BorderLayout.NORTH);
+        this.frame.getContentPane().add(pSouth, BorderLayout.SOUTH);
         bGo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -70,8 +70,8 @@ public final class DrawNumberViewImpl implements DrawNumberView {
             }
         });
 
-        frame.pack();
-        frame.setLocationByPlatform(true);
+        this.frame.pack();
+        this.frame.setLocationByPlatform(true);
     }
 
     @Override
@@ -80,7 +80,7 @@ public final class DrawNumberViewImpl implements DrawNumberView {
     }
 
     private boolean confirmDialog(final String question, final String name) {
-        return JOptionPane.showConfirmDialog(frame, question, name,
+        return JOptionPane.showConfirmDialog(this.frame, question, name,
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
@@ -91,7 +91,7 @@ public final class DrawNumberViewImpl implements DrawNumberView {
 
     @Override
     public void numberIncorrect() {
-        JOptionPane.showMessageDialog(frame, "Incorrect Number.. try again", "Incorrect Number",
+        JOptionPane.showMessageDialog(this.frame, "Incorrect Number.. try again", "Incorrect Number",
                 JOptionPane.ERROR_MESSAGE);
     }
 
@@ -108,15 +108,21 @@ public final class DrawNumberViewImpl implements DrawNumberView {
         default:
             throw new IllegalStateException("Unexpected result: " + res);
         }
-        observer.resetGame();
+        this.observer.resetGame();
     }
 
     @Override
     public void limitsReached() {
-        JOptionPane.showMessageDialog(frame, "You lost" + NEW_GAME, "Lost", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this.frame, "You lost" + NEW_GAME, "Lost", JOptionPane.WARNING_MESSAGE);
     }
 
     private void plainMessage(final String msg) {
-        JOptionPane.showMessageDialog(frame, msg, "Result", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this.frame, msg, "Result", JOptionPane.PLAIN_MESSAGE);
     }
+
+    @Override
+    public void displayError(final String message) {
+        // TODO Auto-generated method stub
+    }
+
 }
