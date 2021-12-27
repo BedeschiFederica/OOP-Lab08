@@ -122,7 +122,7 @@ public final class DrawNumberViewImpl implements DrawNumberView {
 
     @Override
     public void displayError(final String message) {
-        // TODO Auto-generated method stub
+        JOptionPane.showMessageDialog(this.frame, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
 }
