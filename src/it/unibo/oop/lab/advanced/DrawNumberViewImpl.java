@@ -26,7 +26,7 @@ public final class DrawNumberViewImpl implements DrawNumberView {
     private final JFrame frame = new JFrame(FRAME_NAME);
 
     /**
-     * 
+     * Builds a new {@link DrawNumberViewImpl}.
      */
     public DrawNumberViewImpl() {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +91,7 @@ public final class DrawNumberViewImpl implements DrawNumberView {
 
     @Override
     public void numberIncorrect() {
-        JOptionPane.showMessageDialog(this.frame, "Incorrect Number.. try again", "Incorrect Number",
+        JOptionPane.showMessageDialog(frame, "Incorrect Number... try again", "Incorrect Number",
                 JOptionPane.ERROR_MESSAGE);
     }
 
